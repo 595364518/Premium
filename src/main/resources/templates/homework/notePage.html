@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>提示</title>
+</head>
+<body>
+<h3 style="text-align: center"><span th:if="${not #strings.isEmpty(msg1)}" style="color: red" th:text="${msg1}"></span></h3>
+<a th:href="@{/homework}">返回</a>
+
+</body>
+</html>

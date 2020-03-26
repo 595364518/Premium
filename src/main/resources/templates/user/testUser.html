@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>testValidator</title>
+</head>
+<body>
+<label>
+    Show(id):<input th:value="${id}" disabled/>
+</label>
+<form th:action="@{/addUser}" th:method="post">
+    <label for="username">
+        用户名:
+        <input th:type="text" id="username" th:name="username"/>
+    </label>
+    <label for="desc">
+        描述:
+        <input th:type="textarea" th:name="desc" id="desc"/>
+    </label>
+    <input th:type="submit" th:value="提交" disabled/>
+</form>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>购买商品</title>
+    <script th:src="@{/webjars/jquery/3.4.0/jquery.js}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            for(let loop=1;loop<=10000;loop++) {
+                const param = {
+                    userId: loop,
+                    productId: 1,
+                    quantity: 1
+                };
+                $.post("/buy", param, function (result) {
+                    //alert(result.message);
+                })
+            }
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

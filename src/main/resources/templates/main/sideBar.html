@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+</head>
+<body>
+<div class="panel-group col-xs-2" id="public_side">
+    <ul class="nav nav-pills nav-stacked">
+        <li role="presentation" class="active">
+            <a>基本操作</a>
+        </li>
+        <li role="presentation">
+            <a href="#" data-target="#student" data-toggle="collapse">学生管理</a>
+            <ul id="student" class="collapse">
+                <li>
+                    <a href="">班级分配</a>
+                </li>
+                <li>
+                    <a href="">删除用户(测试用)</a>
+                </li>
+            </ul>
+        </li>
+        <li role="presentation">
+            <a href="#" data-target="#homework" data-toggle="collapse">作业管理</a>
+            <ul id="homework" class="collapse">
+                <li>
+                    <a href="">作业发布</a>
+                </li>
+                <li>
+                    <a href="">作业批改</a>
+                </li>
+            </ul>
+        </li>
+        <li role="presentation">
+            <a href="#" data-target="#permission" data-toggle="collapse">权限管理</a>
+            <ul id="permission" class="collapse">
+                <li>
+                    <a href="">班级分配</a>
+                </li>
+                <li>
+                    <a href="">权限分配</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

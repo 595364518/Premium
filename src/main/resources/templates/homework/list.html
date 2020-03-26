@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>提交列表</title>
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+</head>
+<body>
+<nav class="navbar navbar-default" th:replace="main/header::#public_header"></nav>
+<div class="table-responsive container">
+    <table class="table table-hover" id="table1">
+        <tr>
+            <td>序号</td>
+            <td>作业</td>
+            <td>学号</td>
+            <td>操作</td>
+        </tr>
+        <tr th:each="a:${homework.list}">
+            <td th:text="${a.hid}"></td>
+            <td th:text="${a.hname}"></td>
+            <td th:text="${a.sno}"></td>
+            <td th:if="${a.hname.substring(a.hname.length()-3,a.hname.length())!='doc'&&a.hname.substring(a.hname.length()-3,a.hname.length())!='ocx'}"><span style="color: red">不合格</span></td>
+            <td th:if="${a.hname.substring(a.hname.length()-3,a.hname.length())=='doc'||a.hname.substring(a.hname.length()-3,a.hname.length())=='ocx'}"><a th:href="@{/downloadFile}+'?fileName='+${a.hname}" style="color: lawngreen">合格</a></td>
+        </tr>
+        <tr th:hidden="${homework.list.isEmpty()}" style="margin: 0 auto; background-color: grey; width: 100%;height: 4%;overflow: hidden">
+            <td colspan="4" style="text-align: center">
+                <a th:href="@{/homework(start=1)}" style="color: aqua;"th:if="${homework.pageNum!=1}">[首  页]</a>
+                <a th:href="@{/homework(start=${homework.pageNum-1})}" th:if="${homework.pageNum!=1}" style="color: aqua;">[上一页]</a>
+                <a th:href="@{/homework(start=${homework.pageNum+1})}" th:if="${homework.pageNum!=homework.pages}" style="color: aqua;">[下一页]</a>
+                <a th:href="@{/homework(start=${homework.pages})}" style="color: aqua;" th:if="${homework.pageNum!=homework.pages}">[末  页]</a>
+                当前页:<input type="text" style="width: 20px;" readonly="readonly"th:value="${homework.pageNum}"/>/总页数:<input type="text" style="width: 20px;" readonly="readonly" th:value="${homework.pages}"/>
+            </td>
+        </tr>
+        <tr th:hidden="${!homework.list.isEmpty()}">
+            <td colspan="4" style="text-align: center">暂无数据...</td>
+        </tr>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

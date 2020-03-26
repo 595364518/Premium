@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lhb.springboot.dao.UserDao">
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.lhb.springboot.entity.User">
+        insert into `t_user`(username,`level`,sno) values (#{username},#{level},#{sno});
+    </insert>
+    <delete id="deleteUser">
+        delete from `t_user` where id=#{sno};
+    </delete>
+    <update id="updateUser" parameterType="com.lhb.springboot.entity.User">
+        update `t_user`
+        <set>
+            <if test="username!=null">username=#{username},</if>
+            <if test="sno!=null">desc=#{sno}</if>
+        </set>
+        where sno=#{sno};
+    </update>
+    <select id="findUserBySno" resultType="com.lhb.springboot.entity.User">
+        select * from `t_user` where sno=#{sno};
+    </select>
+</mapper>

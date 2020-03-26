@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <script th:src="@{/webjars/jquery/3.4.0/jquery.js}"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            $("#submit").click(function () {
+
+                const username = $("#username").val();
+                const sno = $("#sno").val();
+                const level = $("#level").val();
+                const para={
+                    username:username,
+                    sno:sno,
+                    level:level
+                };
+                $.post({
+                    url: "/addUser",
+                    contentType: "application/json",
+                    data: JSON.stringify(para),
+                    success:function (result) {
+                        if (result==null){
+                            alert("注册失败");
+                            return;
+                        }
+                        alert("注册成功");
+
+                    }
+                });
+
+            })
+        })
+    </script>
+</head>
+<body>
+<form th:method="post" id="addForm">
+    <input id="level" th:name="level" value="1" hidden/>
+    学    号：<input th:type="text" id="sno" th:name="sno" placeholder="请输入学号"/><br/>
+    用户名：<input th:type="text" id="username" th:name="username" placeholder="请输入用户名"/><br/>
+    <input th:type="button" id="submit" value="注册"/>
+</form>
+</body>
+</html>

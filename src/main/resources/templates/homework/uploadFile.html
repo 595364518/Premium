@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>上传作业</title>
+</head>
+<body>
+<h1 style="text-align: center;color: aqua">提交作业(<span style="color: red">只支持.docx或.doc格式！！！</span>)</h1>
+<h3 style="text-align: center;color: orangered">注意：格式错误系统将判定为不合格</h3>
+<form th:action="@{/upload}" method="post" enctype="multipart/form-data">
+    <input th:type="text" value="1" th:name="level" hidden/><br/>
+    学  号：<input th:type="text" th:name="sno" placeholder="请输入学号"/><br/>
+    姓  名：<input th:type="text" th:name="username" placeholder="请输入姓名"/><br/>
+    <input th:type="file" th:name="file" value="请选择文件"/><br/>
+    <input th:type="submit" value="提交"/>
+</form>
+<a th:href="@{/homework}">提交列表</a>
+</body>
+</html>
