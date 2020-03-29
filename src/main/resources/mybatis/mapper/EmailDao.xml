@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lhb.springboot.dao.EmailDao">
+    <insert id="addHomework" useGeneratedKeys="true" keyProperty="homework_id"
+            parameterType="com.lhb.springboot.entity.HomeWorks">
+
+    </insert>
+
+</mapper>
