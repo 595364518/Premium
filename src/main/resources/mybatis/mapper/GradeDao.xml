@@ -2,10 +2,28 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lhb.springboot.dao.GradeDao">
-    <insert id="addHomework" useGeneratedKeys="true" keyProperty="homework_id"
-            parameterType="com.lhb.springboot.entity.HomeWorks">
-
+<mapper namespace="com.lhb.springboot.dao.users.GradeDao">
+    <insert id="addGrade" useGeneratedKeys="true" keyProperty="grade_id"
+            parameterType="com.lhb.springboot.entity.users.Grade">
+        insert into `t_grade`(grade_name) values(#{gradeName});
     </insert>
+    <delete id="delGrade">
+        delete from `t_grade` where grade_id = #{gradeId};
+    </delete>
+    <update id="updateGrade" parameterType="com.lhb.springboot.entity.users.Grade">
+        update `t_grade` set grade_name = #{gradeName} where grade_id = #{gradeId};
+    </update>
+    <select id="findAllGrades" resultType="com.lhb.springboot.entity.users.Grade">
+        select * from `t_grade`;
+    </select>
+    <select id="findGradesByIdOrName" resultType="com.lhb.springboot.entity.users.Grade">
+        select * from `t_grade` where 1 = 1
+        <if test="gradeId != null">
+            and grade_id = #{gradeId}
+        </if>
+        <if test="gradeName != null">
+            and grade_name like '%${gradeName}%';
+        </if>
+    </select>
 
 </mapper>

@@ -1,6 +1,6 @@
 package com.lhb.springboot.controller;
 
-import com.lhb.springboot.service.ProductService;
+import com.lhb.springboot.service.tests.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;

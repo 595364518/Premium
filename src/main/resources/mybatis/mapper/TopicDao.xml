@@ -2,10 +2,37 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lhb.springboot.dao.TopicDao">
-    <insert id="addHomework" useGeneratedKeys="true" keyProperty="homework_id"
-            parameterType="com.lhb.springboot.entity.HomeWorks">
-
+<mapper namespace="com.lhb.springboot.dao.comments.TopicDao">
+    <insert id="addTopic" useGeneratedKeys="true" keyProperty="topic_id"
+            parameterType="com.lhb.springboot.entity.comments.Topic">
+        insert into `t_topic`(user_id,topic_name,content,topic_date,topic_like,view_count,topic_status)
+        values(#{userId},#{topicName},#{content},now(),0,0,0);
     </insert>
+    <delete id="delTopicById">
+        delete from `t_topic` where topic_id = #{topicId};
+    </delete>
+    <update id="updateTopic" parameterType="com.lhb.springboot.entity.comments.Topic">
+        update `t_topic` set user_id = user_id,
+        <if test="topicLike != null">
+            topic_like = #{topicLike},
+        </if>
+        <if test="viewCount != null">
+           view_count = #{viewCount}, 
+        </if>
+        <if test="topicStatus != null">
+            topic_status = #{topicStatus}
+        </if>
+        where topic_id = #{topicId};
+    </update>
+    <select id="findAllTopics" resultType="com.lhb.springboot.entity.comments.Topic">
+        select * from `t_topic`;
+    </select>
+    <select id="findTopicsByUserId" resultType="com.lhb.springboot.entity.comments.Topic">
+        select * from `t_topic` where user_id = #{userId};
+    </select>
+    <select id="findTopicsByUserIdAndName" resultType="com.lhb.springboot.entity.comments.Topic">
+        select * from `t_topic` where user_id = #{userId}
+        and topic_name like '%${topicName}%';
+    </select>
 
 </mapper>

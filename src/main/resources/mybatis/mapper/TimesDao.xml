@@ -2,10 +2,27 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lhb.springboot.dao.TimesDao">
-    <insert id="addHomework" useGeneratedKeys="true" keyProperty="homework_id"
-            parameterType="com.lhb.springboot.entity.HomeWorks">
-
+<mapper namespace="com.lhb.springboot.dao.users.TimesDao">
+    <insert id="addTime" useGeneratedKeys="true" keyProperty="time_id"
+            parameterType="com.lhb.springboot.entity.users.Times">
+        insert into `t_times`(time_name,note,public_date,grade_id)
+        values (#{timeName},#{note},now(),#{gradeId});
     </insert>
+    <delete id="delTimeById">
+        delete from `t_times` where time_id = #{timeId};
+    </delete>
+    <update id="updateTime" parameterType="com.lhb.springboot.entity.users.Times">
+        update `t_times` set note = #{note},
+        <if test="gradeId != null">
+            grade_id = #{gradeId},
+        </if>
+        public_date = now() where time_id = #{timeId};
+    </update>
+    <select id="findAllTimes" resultType="com.lhb.springboot.entity.users.Times">
+        select * from `t_times`;
+    </select>
+    <select id="findTimesByGradeId" resultType="com.lhb.springboot.entity.users.Times">
+        select * from `t_times` where grade_id = #{gradeId};
+    </select>
 
 </mapper>

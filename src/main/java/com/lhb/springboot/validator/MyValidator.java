@@ -1,6 +1,6 @@
 package com.lhb.springboot.validator;
 
-import com.lhb.springboot.entity.User;
+import com.lhb.springboot.entity.tests.User;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

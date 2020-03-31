@@ -2,18 +2,18 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lhb.springboot.dao.HomeworkDao">
+<mapper namespace="com.lhb.springboot.dao.tests.HomeWorkDao">
     <insert id="addHW" useGeneratedKeys="true" keyProperty="hid"
-            parameterType="com.lhb.springboot.entity.HomeWork">
+            parameterType="com.lhb.springboot.entity.tests.HomeWork">
         insert into `homework`(hname,sno) values (#{hname},#{sno});
     </insert>
     <delete id="delHW">
         delete from homework where sno = #{sno};
     </delete>
-    <select id="findHWBySno" resultType="com.lhb.springboot.entity.HomeWork">
+    <select id="findHWBySno" resultType="com.lhb.springboot.entity.tests.HomeWork">
         select * from homework where sno = #{sno};
     </select>
-    <select id="findHWs" resultType="com.lhb.springboot.entity.HomeWork">
+    <select id="findHWs" resultType="com.lhb.springboot.entity.tests.HomeWork">
         select * from homework where 1=1
         <if test="hname!=null">
             and hname like '%${hname}%'

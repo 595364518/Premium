@@ -1,6 +1,6 @@
 package com.lhb.springboot.converter;
 
-import com.lhb.springboot.entity.User;
+import com.lhb.springboot.entity.tests.User;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 

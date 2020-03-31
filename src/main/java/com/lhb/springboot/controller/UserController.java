@@ -1,12 +1,10 @@
 package com.lhb.springboot.controller;
 
-import com.lhb.springboot.entity.User;
-import com.lhb.springboot.service.UserService;
+import com.lhb.springboot.entity.tests.User;
+import com.lhb.springboot.service.tests.UserService;
 import com.lhb.springboot.validator.MyValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -14,12 +12,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

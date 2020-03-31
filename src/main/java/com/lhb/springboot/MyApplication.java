@@ -6,13 +6,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import redis.clients.jedis.Jedis;
 
 @EnableCaching
 @EnableScheduling
-@MapperScan(basePackages = "com.lhb.springboot.dao")
+@MapperScan(basePackages = {"com.lhb.springboot.dao.tests"
+                            ,"com.lhb.springboot.dao.comments"
+                            ,"com.lhb.springboot.dao.users"})
 @SpringBootApplication
 public class MyApplication {
 
