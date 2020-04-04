@@ -1,5 +1,7 @@
 package com.lhb.springboot;
 
+import com.lhb.springboot.utils.CodeUtil;
+import com.lhb.springboot.utils.MailUtil;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

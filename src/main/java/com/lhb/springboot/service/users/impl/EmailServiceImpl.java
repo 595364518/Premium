@@ -5,6 +5,9 @@ import com.lhb.springboot.entity.users.Email;
 import com.lhb.springboot.service.users.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,7 +21,13 @@ public class EmailServiceImpl implements EmailService {
     EmailDao emailDao;
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,
+            propagation = Propagation.REQUIRES_NEW)
     public Email addEmail(Email e) {
+        int flag = emailDao.addEmail(e);
+        if(flag == 1){
+            return e;
+        }
         return null;
     }
 
@@ -34,11 +43,11 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public List<Email> findAllEmails() {
-        return null;
+        return emailDao.findAllEmails();
     }
 
     @Override
     public Email findEmailByEName(Email e) {
-        return null;
+        return emailDao.findEmailByEName(e);
     }
 }

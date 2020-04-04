@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/mailTest}" th:method="post">
+    <input th:type="text" id="to" name="to"/>
+    <input th:type="button" id="clickBtn" th:value="发送"/><span id="msg"></span>
+</form>
+<form hidden="true" id="form1">
+    <input type="text" id="validateCode"/>
+    <input type="button" id="btn" th:value="验证"/><br/>
+    <span id="msg2"></span>
+</form>
+<script th:src="@{/webjars/jquery/3.4.0/jquery.js}"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#clickBtn').click(function () {
+            const to = $('#to').val();
+            const para = {
+                email:to
+            }
+            $.post({
+                url:"/mailTest",
+                contentType:"application/json",
+                data:JSON.stringify(para),
+                success:function (result) {
+                    if(result.code == 200){
+                        $('#msg').text(result.msg);
+                        $('#msg').css("color","aqua");
+                        $('#form1').attr("hidden",false)
+                    }else{
+                        $('#msg').text(result.msg);
+                        $('#msg').css("color","red");
+                    }
+                }
+            })
+        });
+        $('#btn').click(function () {
+            const code = $('#validateCode').val();
+            const para = {
+                codeName:code
+            }
+            $.post({
+                url:"/users/regist",
+                contentType: "application/json",
+                data:JSON.stringify(para),
+                success:function (result) {
+                    if(result.code==200){
+                        $('#msg2').text(result.msg);
+                        $('#msg2').css("color","aqua");
+                    }
+                    $('#msg2').text(result.msg);
+                }
+            })
+        });
+    })
+</script>
+</body>
+</html>

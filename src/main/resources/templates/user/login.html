@@ -47,7 +47,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-3">
                 <button type="button" class="btn btn-primary" id="submit">登录</button>
-                <a th:href="@{/toRegist}" class="btn btn-default" role="button">注册</a>
+                <a th:href="@{/sendCode}" class="btn btn-default" role="button">注册</a>
             </div>
         </div>
     </form>
@@ -67,19 +67,19 @@
                 return;
             }
             const para = {
-                username:username,
-                sno:sno
+                userName:username,
+                userId:sno
             }
             $.post({
                 url:"/login",
                 contentType:"application/json",
                 data:JSON.stringify(para),
                 success:function (result) {
-                    if(result.sno==null||result.sno==""){
+                    if(result.userId==null||result.userId==""){
                         alert("学号或姓名错误");
                         return;
                     }
-                    alert("欢迎你: "+result.username);
+                    alert("欢迎你: "+result.userName);
                     location.href="/home";
                 }
             });

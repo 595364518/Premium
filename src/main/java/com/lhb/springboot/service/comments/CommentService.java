@@ -49,4 +49,12 @@ public interface CommentService {
      * @return 评论集合
      */
     List<Comment> findCommentsByTopicId(Long topicId);
+
+    /**
+     * 通过话题编号和用户编号查询评论
+     * @param topicId 话题编号
+     * @param userId 用户编号
+     * @return 评论集合
+     */
+    List<Comment> findCommentsByTopicIdAndUserId(Long topicId,Long userId);
 }

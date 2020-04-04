@@ -5,6 +5,9 @@ import com.lhb.springboot.entity.users.Times;
 import com.lhb.springboot.service.users.TimesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,27 +21,36 @@ public class TimesServiceImpl implements TimesService {
     TimesDao timesDao;
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,
+            propagation = Propagation.REQUIRES_NEW)
     public Times addTime(Times times) {
+        int flag = timesDao.addTime(times);
+        if(flag == 1){
+            return times;
+        }
         return null;
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public int delTimeById(Long timeId) {
-        return 0;
+        return timesDao.delTimeById(timeId);
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,
+            propagation = Propagation.REQUIRES_NEW)
     public int updateTime(Times times) {
-        return 0;
+        return timesDao.updateTime(times);
     }
 
     @Override
     public List<Times> findAllTimes() {
-        return null;
+        return timesDao.findAllTimes();
     }
 
     @Override
     public List<Times> findTimesByGradeId(Long gradeId) {
-        return null;
+        return timesDao.findTimesByGradeId(gradeId);
     }
 }
