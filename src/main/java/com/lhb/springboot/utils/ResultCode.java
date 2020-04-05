@@ -26,8 +26,15 @@ public enum ResultCode {
     /**
      * 请求失败
      */
-    FAILED(204,"请求失败");
-
+    FAILED(204,"请求失败"),
+    /**
+     * 验证码错误
+     */
+    WRONG_CODE(205,"验证码错误"),
+    /**
+     * 验证码为空
+     */
+    EMPTY_CODE(205,"验证码为空");
     int code;
     String msg;
     ResultCode(int code,String msg) {

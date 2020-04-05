@@ -45,6 +45,11 @@ public class GradeServiceImpl implements GradeService {
     }
 
     @Override
+    public Grade findGradeByName(Grade grade) {
+        return gradeDao.findGradeByName(grade);
+    }
+
+    @Override
     public List<Grade> findAllGrades() {
         return gradeDao.findAllGrades();
     }

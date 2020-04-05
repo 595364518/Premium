@@ -44,8 +44,7 @@ public class UserController {
     private UserService userService = null;
     @Autowired
     private RestTemplate restTemplate;
-    @Autowired
-    JavaMailSenderImpl mailSender;
+
     @Autowired
     private UsersService usersService;
 
@@ -58,25 +57,7 @@ public class UserController {
     public String ttt(){
         return "testtt";
     }
-    @ResponseBody
-    @PostMapping("/mailTest")
-    public Result mailt(@RequestBody Email e,HttpServletRequest request){
-        String toMail = e.email+"@qq.com";
-        MailUtil mailUtil = new MailUtil();
-        String co = CodeUtil.generateCode();
-        HttpSession session = request.getSession();
-        try {
-            mailUtil.sendEmail(mailSender,"595364518@qq.com",toMail,co ,
-                    "try");
-            session.setAttribute("code",co);
-            return new Result(ResultCode.SUCCESSFUL.getCode(),
-                    ResultCode.SUCCESSFUL.getMsg());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return new Result(ResultCode.FAILED.getCode(),
-                ResultCode.FAILED.getMsg());
-    }
+
 //    @RequestMapping(value = "/sendsmsTest",method = RequestMethod.GET)
 //    @ResponseBody
 //    public String sendsmsTest(){

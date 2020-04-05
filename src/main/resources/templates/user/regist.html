@@ -2,45 +2,265 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>注册</title>
+    <title>用户注册</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script th:src="@{/webjars/jquery/3.4.0/jquery.js}"></script>
     <script type="text/javascript">
         $(function () {
-
-            $("#submit").click(function () {
-
-                const username = $("#username").val();
-                const sno = $("#sno").val();
-                const level = $("#level").val();
-                const para={
-                    username:username,
-                    sno:sno,
-                    level:level
-                };
-                $.post({
-                    url: "/addUser",
-                    contentType: "application/json",
-                    data: JSON.stringify(para),
-                    success:function (result) {
-                        if (result==null){
-                            alert("注册失败");
+            let status= 0;
+            let sendStatus = 0;
+            let emailStatus = 0;
+            $.get({
+                url:"/users/getGrades",
+                success:function (result) {
+                    if(result!=null){
+                        let obj = document.getElementById("grades");
+                        for (let i=0;i<result.length;i++){
+                            obj.options[i] = new Option(result[i].gradeName);
+                        }
+                    }
+                },
+                error:function () {
+                    alert("年纪拉取失败");
+                }
+            });
+            $("#sno").blur(function () {
+                const userId = $("#sno").val();
+                $("#snoMsg").text("");
+                if(userId == null ||userId == ""){
+                    $("#snoMsg").text("学号不能为空");
+                    $("#snoMsg").css("color","red");
+                    $("#sno").focus();
+                    return;
+                }else{
+                    $("#snoMsg").text("");
+                    const para = {
+                        userId:userId
+                    }
+                    $.post({
+                        url:"/users/checkUser",
+                        data:para,
+                        success:function (result) {
+                            if(result.code == 202){
+                                $("#snoMsg").text("");
+                                $("#snoMsg").text("该账号已注册");
+                                $("#snoMsg").css("color","red");
+                                $("#sno").focus();
+                            }else{
+                                $("#snoMsg").text("");
+                                $("#snoMsg").text("学号可以使用");
+                                $("#snoMsg").css("color","aqua");
+                            }
+                        },
+                        error:function () {
+                            alert("查询失败");
                             return;
                         }
-                        alert("注册成功");
-
+                    })
+                }
+            });
+            $("#email").blur(function () {
+                const em = $("#email").val();
+                if(em == null || em == ""){
+                    $("#sendMsg").text("请输入邮箱");
+                    $("#sendMsg").css("color","red");
+                    $("#email").focus();
+                    return;
+                }
+                $("#sendMsg").text("");
+                const para = {
+                    email:em
+                };
+                $.post({
+                    url:"/users/checkEmail",
+                    data:para,
+                    success:function (result) {
+                        if(result.code == 200){
+                            $("#sendMsg").text("邮箱可用");
+                            $("#sendMsg").css("color","aqua");
+                            emailStatus = 1;
+                            return;
+                        }
+                        emailStatus = 0;
+                        $("#sendMsg").text("该邮箱已被注册");
+                        $("#sendMsg").css("color","red");
+                        $("#email").focus();
+                    },
+                    error:function () {
+                        alert("邮箱检测请求失败");
                     }
-                });
-
-            })
+                })
+            });
+            $('#clickBtn').click(function () {
+                const to = $('#email').val();
+                const name = $("#sname").val();
+                if(to == null || to == ""){
+                    $("#sendMsg").text("请输入正确的邮箱");
+                    $("#sendMsg").css("color","red");
+                    $("#email").focus();
+                    return;
+                }
+                if(name == null || name == ""){
+                    $("#snameMsg").text("请输入姓名");
+                    $("#snameMsg").css("color","red");
+                    $("#sname").focus();
+                    return;
+                }
+                if(emailStatus != 1){
+                    return;
+                }
+                $("#sendMsg").text("");
+                const para = {
+                    email:to,
+                    userName:name
+                }
+                $.post({
+                    url:"/users/mailTest",
+                    data:para,
+                    success:function (result) {
+                        if(result.code == 200){
+                            $('#sendMsg').text("");
+                            $('#sendMsg').text("发送成功");
+                            $('#sendMsg').css("color","aqua");
+                            $('#codeDiv').attr("hidden",false)
+                            sendStatus = 1;
+                        }else{
+                            $('#sendMsg').text("");
+                            $('#sendMsg').text("发送失败");
+                            $('#sendMsg').css("color","red");
+                            $('#codeDiv').attr("hidden",true);
+                            sendStatus = 0;
+                        }
+                    }
+                })
+            });
+            $('#btn').click(function () {
+                const code = $('#validateCode').val();
+                const para = {
+                    codeName:code
+                };
+                //检测是否已经发送邮件成功
+                if(sendStatus != 1){
+                    alert("请先通过邮件获取验证码");
+                    return;
+                }
+                if(code == null ||code == ""){
+                    $("#validateMsg").text("请输入验证码");
+                    $("#validateMsg").css("color","red");
+                    $("#validateCode").focus();
+                    return;
+                }
+                $("#validateMsg").text("");
+                $.post({
+                    url:"/users/checkCode",
+                    contentType: "application/json",
+                    data:JSON.stringify(para),
+                    success:function (result) {
+                        if(result.code==200){
+                            $('#validateMsg').text("");
+                            $('#validateMsg').text("验证成功");
+                            $('#validateMsg').css("color","aqua");
+                            status = 1;
+                            return;
+                        }
+                        status = 0;
+                        $('#validateMsg').text("验证码错误");
+                    },
+                    error:function () {
+                        alert("请求失败");
+                    }
+                })
+            });
+            $("#register").click(function () {
+                const sno = $("#sno").val();
+                const sname = $("#sname").val();
+                const email = $("#email").val();
+                const grade = $("#grades option:selected").val();
+                //alert(grade);
+                if(sno == null || sno == ""){
+                    $("#snoMsg").text("请输入学号");
+                    $("#snoMsg").css("color","red");
+                    $("#sno").focus();
+                    return;
+                }
+                $("#snoMsg").text("");
+                if(sname == null || sname == ""){
+                    $("#snameMsg").text("请输入姓名");
+                    $("#snameMsg").css("color","red");
+                    $("#sname").focus();
+                    return;
+                }
+                $("#snameMsg").text("");
+                //检测是否已通过验证
+                if(status != 1){
+                    alert("请先通过验证码验证");
+                    return;
+                }
+                const para = {
+                    userId:sno,
+                    userName:sname,
+                    email:email,
+                    gradeName:grade
+                };
+                $.post({
+                    url:"/users/regist",
+                    data:para,
+                    success:function (result) {
+                        if(result!= null&&result.code == 200){
+                            alert("注册成功");
+                            return;
+                        }
+                        alert("注册失败,请稍后再试");
+                    },
+                    error:function () {
+                        alert("请求失败(内部错误)");
+                    }
+                })
+            });
         })
     </script>
 </head>
 <body>
-<form th:method="post" id="addForm">
-    <input id="level" th:name="level" value="1" hidden/>
-    学    号：<input th:type="text" id="sno" th:name="sno" placeholder="请输入学号"/><br/>
-    用户名：<input th:type="text" id="username" th:name="username" placeholder="请输入用户名"/><br/>
-    <input th:type="button" id="submit" value="注册"/>
+<form>
+    <div class="form-group col-sm-3">
+        <label for="sno">学号</label>
+        <input type="text" class="form-control" id="sno" placeholder="学号">
+        <span id="snoMsg"></span>
+    </div>
+    <div class="form-group col-sm-3">
+        <label for="sname">姓名</label>
+        <input type="text" class="form-control" id="sname" placeholder="姓名">
+        <span id="snameMsg"></span>
+    </div>
+    <div class="form-group col-sm-3">
+        <label for="email">邮箱</label>
+        <input type="email" class="form-control" id="email" placeholder="QQ邮箱">
+        <button type="button" id="clickBtn" class="btn btn-secondary">发送</button>
+        <span id="sendMsg"></span>
+    </div>
+    <div class="form-group col-sm-3" id="codeDiv" hidden="true">
+        <label for="validateCode">验证码</label>
+        <input type="text" class="form-control" id="validateCode" placeholder="验证码">
+        <button type="button" id="btn" class="btn btn-secondary">验证</button>
+        <span id="validateMsg"></span>
+    </div>
+    <div class="form-group col-sm-3" id="gradeDiv">
+        <label for="grades">班级</label>
+        <select id="grades" class="form-control">
+            <option>-- 请选择 --</option>
+        </select>
+    </div>
+
+<!--    <div class="form-group col-sm-3">-->
+<!--        <label for="exampleInputFile">File input</label>-->
+<!--        <input type="file" id="exampleInputFile">-->
+<!--        <p class="help-block">Example block-level help text here.</p>-->
+<!--    </div>-->
+    <button type="button" id="register" class="btn btn-primary">注册</button>
 </form>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
+
 </html>

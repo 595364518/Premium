@@ -5,7 +5,7 @@
 <mapper namespace="com.lhb.springboot.dao.users.UsersDao">
     <insert id="addUser" useGeneratedKeys="false"
             parameterType="com.lhb.springboot.entity.users.Users">
-        insert into `t_user`(user_id,email_id,grade_id,user_name,password,sex,level,create_dae,
+        insert into `t_user`(user_id,email_id,grade_id,user_name,password,sex,level,create_date,
         head_img,birthday)
         values (#{userId},#{emailId},#{gradeId},#{userName},#{password},#{sex},#{level},now(),
         #{headImg},#{birthday});

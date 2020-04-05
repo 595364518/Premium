@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lhb.springboot.dao.comments.LikeDao">
-    <insert id="addLike" useGeneratedKeys="true" keyProperty="like_id"
+    <insert id="addLike" useGeneratedKeys="true" keyProperty="likeId"
             parameterType="com.lhb.springboot.entity.comments.Like">
         insert into `t_like`(topic_id,user_id,comment_id,reply_id,like_status)
         values(#{topicId},#{userId},#{commentId},#{replyId},1);

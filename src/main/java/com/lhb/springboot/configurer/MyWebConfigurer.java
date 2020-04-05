@@ -32,7 +32,7 @@ public class MyWebConfigurer {
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/","/login","/regist","/toRegist")
+                .excludePathPatterns("/","/login","/users/**","/mailTest")
                 .excludePathPatterns("/css/**","/img/**","/fonts/**","/js/**","/music/**","/webjars/**");
                 registry.addInterceptor(new DownLoadInterceptor()).addPathPatterns("/downloadFile");
             }

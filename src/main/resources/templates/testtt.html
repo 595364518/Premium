@@ -53,6 +53,9 @@
                         $('#msg2').css("color","aqua");
                     }
                     $('#msg2').text(result.msg);
+                },
+                error:function () {
+                    alert("验证失败");
                 }
             })
         });

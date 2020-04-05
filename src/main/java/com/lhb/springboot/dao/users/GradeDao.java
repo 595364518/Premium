@@ -33,6 +33,13 @@ public interface GradeDao {
     int updateGrade(Grade grade);
 
     /**
+     * 通过年级名查询年级
+     * @param grade 年级信息
+     * @return 年级
+     */
+    Grade findGradeByName(Grade grade);
+
+    /**
      * 查询所有年级
      * @return 年级集合
      */

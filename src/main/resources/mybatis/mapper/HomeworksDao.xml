@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lhb.springboot.dao.users.HomeworksDao">
-    <insert id="addHomework" useGeneratedKeys="true" keyProperty="homework_id"
+    <insert id="addHomework" useGeneratedKeys="true" keyProperty="homeworkId"
             parameterType="com.lhb.springboot.entity.users.HomeWorks">
         insert into `t_homework`(user_id,time_id,homework_name,qualified,checked,homework_note,handed_date)
         values(#{userId},#{timeId},#{homeworkName},#{qualified},0,#{homeworkNote},now());

@@ -3,14 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lhb.springboot.dao.users.CodeDao">
-    <insert id="addCode" useGeneratedKeys="true" keyProperty="code_id"
+    <insert id="addCode" useGeneratedKeys="true" keyProperty="codeId"
             parameterType="com.lhb.springboot.entity.users.Code">
         insert into `t_code`(email_id,code_name) values(#{emailId},#{codeName});
     </insert>
     <delete id="delCodeById" parameterType="com.lhb.springboot.entity.users.Email">
         delete from `t_code` where email_id = #{emailId};
     </delete>
-    <select id="findCodeById" parameterType="com.lhb.springboot.entity.users.Email">
+    <select id="findCodeById" parameterType="com.lhb.springboot.entity.users.Email"
+    resultType="com.lhb.springboot.entity.users.Code">
         select * from `t_code` where email_id = #{emailId};
     </select>
 </mapper>

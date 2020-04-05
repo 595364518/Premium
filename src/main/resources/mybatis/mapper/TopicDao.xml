@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lhb.springboot.dao.comments.TopicDao">
-    <insert id="addTopic" useGeneratedKeys="true" keyProperty="topic_id"
+    <insert id="addTopic" useGeneratedKeys="true" keyProperty="topicId"
             parameterType="com.lhb.springboot.entity.comments.Topic">
         insert into `t_topic`(user_id,topic_name,content,topic_date,topic_like,view_count,topic_status)
         values(#{userId},#{topicName},#{content},now(),0,0,0);
