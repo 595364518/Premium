@@ -37,9 +37,16 @@ public interface UsersService {
     List<Users> findAllUsers();
 
     /**
-     * 通过用户编号或用户名模糊查询
+     * 通过用户编号查询
      * @param users 用户信息
      * @return 用户
      */
     Users findUserById(Users users);
+
+    /**
+     * 通过年级编号查询
+     * @param gradeId 年级编号
+     * @return 用户集合
+     */
+    List<Users> findUsersByGradeId(Long gradeId);
 }

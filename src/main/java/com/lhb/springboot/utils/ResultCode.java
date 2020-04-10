@@ -34,7 +34,11 @@ public enum ResultCode {
     /**
      * 验证码为空
      */
-    EMPTY_CODE(205,"验证码为空");
+    EMPTY_CODE(205,"验证码为空"),
+    /**
+     * 登录失败
+     */
+    LOGIN_FAILED(101,"用户名或密码错误");
     int code;
     String msg;
     ResultCode(int code,String msg) {

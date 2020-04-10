@@ -53,4 +53,9 @@ public class UsersServiceImpl implements UsersService {
     public Users findUserById(Users users) {
         return usersDao.findUserById(users);
     }
+
+    @Override
+    public List<Users> findUsersByGradeId(Long gradeId) {
+        return usersDao.findUsersByGradeId(gradeId);
+    }
 }

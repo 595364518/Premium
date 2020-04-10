@@ -25,15 +25,15 @@
     </select>
     <select id="findLikesByUserIdAndTopicId" resultType="com.lhb.springboot.entity.comments.Like">
         select * from `t_like` where user_id = #{userId}
-        and topic_id = #{topicId};
+        and topic_id = #{topicId}
     </select>
     <select id="findLikesByUserIdAndCommentId" resultType="com.lhb.springboot.entity.comments.Like">
         select * from `t_like` where user_id = #{userId}
-        and comment_id = #{commentId};
+        and comment_id = #{commentId}
     </select>
     <select id="findLikesByUserIdAndReplyId" resultType="com.lhb.springboot.entity.comments.Like">
         select * from `t_like` where user_id = #{userId}
-        and reply_id = #{replyId};
+        and reply_id = #{replyId}
     </select>
 
 </mapper>

@@ -19,10 +19,10 @@
         <if test="checked != null">
             checked = #{checked}
         </if>
-        where homeworkd_id = #{homeworkId};
+        where homeworkd_id = #{homeworkId}
     </update>
     <select id="findAllHomeworks" resultType="com.lhb.springboot.entity.users.HomeWorks">
-        select * from `t_homework`;
+        select * from `t_homework`
     </select>
     <select id="findHomeworksByIdOrName" resultType="com.lhb.springboot.entity.users.HomeWorks">
         select * from `t_homework` where 1 = 1
@@ -30,7 +30,7 @@
             and homework_id = #{homeworkId}
         </if>
         <if test="homeworkName != null">
-            and homework_name like '%${homeworkName}%';
+            and homework_name like '%${homeworkName}%'
         </if>
     </select>
 

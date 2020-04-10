@@ -155,4 +155,28 @@ public class UsersController {
         return new Result(ResultCode.FAILED.getCode(),
                 ResultCode.FAILED.getMsg());
     }
+
+    /**
+     * 用户登录
+     * @param user 用户
+     * @param session 当前会话
+     * @param request 当前请求
+     * @return
+     */
+    @PostMapping("/login")
+    @ResponseBody
+    public Result login(@RequestBody Users user, HttpSession session, HttpServletRequest request){
+//        User user1 = userService.findUserBySno(user.getSno());
+        Users users = usersService.findUserById(user);
+        if(users!=null && users.getUserName().equals(user.getUserName())){
+            session.setAttribute("username",users.getUserName());
+            session.setAttribute("level",users.getLevel());
+            request.getSession().setAttribute("userLogin",users.getUserName());
+            request.getSession().setAttribute("level",users.getLevel());
+            return new Result(ResultCode.SUCCESSFUL.getCode(),
+                    ResultCode.SUCCESSFUL.getMsg());
+        }
+        return new Result(ResultCode.LOGIN_FAILED.getCode(),
+                ResultCode.LOGIN_FAILED.getMsg());
+    }
 }

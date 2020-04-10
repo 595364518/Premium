@@ -12,6 +12,6 @@
     </delete>
     <select id="findCodeById" parameterType="com.lhb.springboot.entity.users.Email"
     resultType="com.lhb.springboot.entity.users.Code">
-        select * from `t_code` where email_id = #{emailId};
+        select * from `t_code` where email_id = #{emailId}
     </select>
 </mapper>

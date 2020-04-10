@@ -11,10 +11,10 @@
         delete from `t_email` where email = #{email};
     </delete>
     <select id="findAllEmails" resultType="com.lhb.springboot.entity.users.Email">
-        select * from `t_email`;
+        select * from `t_email`
     </select>
     <select id="findEmailByEName" resultType="com.lhb.springboot.entity.users.Email">
-        select * from `t_email` where email = #{email};
+        select * from `t_email` where email = #{email}
     </select>
 
 </mapper>

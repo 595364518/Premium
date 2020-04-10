@@ -7,16 +7,38 @@
     <script th:src="@{/webjars/jquery/3.4.0/jquery.js}"></script>
     <script type="text/javascript">
         $(function () {
-            let status= 0;
-            let sendStatus = 0;
-            let emailStatus = 0;
+            let status= 0;//验证状态(是否通过验证)
+            let sendStatus = 0;//发送状态(是否发送成功)
+            let emailStatus = 0;//邮箱状态(邮箱是否合格)
+            let step = 60;//发送邮件冷却时间
+            let timer;//发送邮件冷却计时器
+            //改变发送按钮状态
+            function times(obj){
+                obj.text(step+"s后再次发送");
+                step--;
+                if(step==-1){
+                    obj.text("发送");
+                    obj.attr("disabled",false);
+                    step = 60;
+                    $('#sendMsg').text("");
+                    clearInterval(timer);
+                }
+            }
+            //点击发送，触发冷却
+            function clickMe(obj){
+                obj.attr("disabled",true);
+                timer = setInterval(function () {
+                    times(obj);
+                },1000);
+            }
+            //拉取年级信息
             $.get({
                 url:"/users/getGrades",
                 success:function (result) {
                     if(result!=null){
                         let obj = document.getElementById("grades");
                         for (let i=0;i<result.length;i++){
-                            obj.options[i] = new Option(result[i].gradeName);
+                            obj.options[i+1] = new Option(result[i].gradeName);
                         }
                     }
                 },
@@ -24,6 +46,7 @@
                     alert("年纪拉取失败");
                 }
             });
+            //检测账号是否可用
             $("#sno").blur(function () {
                 const userId = $("#sno").val();
                 $("#snoMsg").text("");
@@ -59,6 +82,7 @@
                     })
                 }
             });
+            //检测邮箱是否可用
             $("#email").blur(function () {
                 const em = $("#email").val();
                 if(em == null || em == ""){
@@ -91,6 +115,7 @@
                     }
                 })
             });
+            //发送邮件
             $('#clickBtn').click(function () {
                 const to = $('#email').val();
                 const name = $("#sname").val();
@@ -122,11 +147,12 @@
                             $('#sendMsg').text("");
                             $('#sendMsg').text("发送成功");
                             $('#sendMsg').css("color","aqua");
-                            $('#codeDiv').attr("hidden",false)
+                            $('#codeDiv').attr("hidden",false);
+                            clickMe($("#clickBtn"));
                             sendStatus = 1;
                         }else{
                             $('#sendMsg').text("");
-                            $('#sendMsg').text("发送失败");
+                            $('#sendMsg').text("请输入正确的邮箱");
                             $('#sendMsg').css("color","red");
                             $('#codeDiv').attr("hidden",true);
                             sendStatus = 0;
@@ -134,6 +160,7 @@
                     }
                 })
             });
+            //验证
             $('#btn').click(function () {
                 const code = $('#validateCode').val();
                 const para = {
@@ -171,6 +198,7 @@
                     }
                 })
             });
+            // 注册
             $("#register").click(function () {
                 const sno = $("#sno").val();
                 const sname = $("#sname").val();
@@ -188,6 +216,10 @@
                     $("#snameMsg").text("请输入姓名");
                     $("#snameMsg").css("color","red");
                     $("#sname").focus();
+                    return;
+                }
+                if(grade == "-- 请选择 --"){
+                    alert("请选择年级");
                     return;
                 }
                 $("#snameMsg").text("");

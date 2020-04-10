@@ -14,7 +14,7 @@
         update `t_grade` set grade_name = #{gradeName} where grade_id = #{gradeId};
     </update>
     <select id="findAllGrades" resultType="com.lhb.springboot.entity.users.Grade">
-        select * from `t_grade`;
+        select * from `t_grade`
     </select>
     <select id="findGradesByIdOrName" resultType="com.lhb.springboot.entity.users.Grade">
         select * from `t_grade` where 1 = 1
@@ -22,11 +22,14 @@
             and grade_id = #{gradeId}
         </if>
         <if test="gradeName != null">
-            and grade_name like '%${gradeName}%';
+            and grade_name like '%${gradeName}%'
         </if>
     </select>
+    <select id="findGradeById" resultType="com.lhb.springboot.entity.users.Grade">
+        select * from `t_grade` where grade_id = #{gradeId}
+    </select>
     <select id="findGradeByName" resultType="com.lhb.springboot.entity.users.Grade">
-        select * from `t_grade` where grade_name = #{gradeName};
+        select * from `t_grade` where grade_name = #{gradeName}
     </select>
 
 </mapper>

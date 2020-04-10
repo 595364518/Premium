@@ -31,6 +31,13 @@ public interface GradeService {
     int updateGrade(Grade grade);
 
     /**
+     * 通过id查询年级
+     * @param grade 年级信息
+     * @return 年级
+     */
+    Grade findGradeById(Grade grade);
+
+    /**
      * 通过年级名查询年级
      * @param grade 年级信息
      * @return 年级

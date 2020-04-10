@@ -16,13 +16,13 @@
         where user_id = #{userId} and comment_id = #{commentId};
     </update>
     <select id="findAllReplies" resultType="com.lhb.springboot.entity.comments.Reply">
-        select * from `t_reply`;
+        select * from `t_reply`
     </select>
     <select id="findRepliesByUserId" resultType="com.lhb.springboot.entity.comments.Reply">
-        select * from `t_reply` where user_id = #{userId};
+        select * from `t_reply` where user_id = #{userId}
     </select>
     <select id="findRepliesByCommentId" resultType="com.lhb.springboot.entity.comments.Reply">
-        select * from `t_reply` where comment_id = #{commentId};
+        select * from `t_reply` where comment_id = #{commentId}
     </select>
 
 </mapper>

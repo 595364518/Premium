@@ -10,7 +10,7 @@ class MyApplicationTests {
 
     @Test
     void contextLoads() {
-
+        System.out.println(CodeUtil.generateCode());
     }
 
 }

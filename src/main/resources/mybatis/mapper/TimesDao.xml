@@ -19,10 +19,10 @@
         public_date = now() where time_id = #{timeId};
     </update>
     <select id="findAllTimes" resultType="com.lhb.springboot.entity.users.Times">
-        select * from `t_times`;
+        select * from `t_times`
     </select>
     <select id="findTimesByGradeId" resultType="com.lhb.springboot.entity.users.Times">
-        select * from `t_times` where grade_id = #{gradeId};
+        select * from `t_times` where grade_id = #{gradeId}
     </select>
 
 </mapper>

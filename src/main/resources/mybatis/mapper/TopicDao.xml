@@ -25,14 +25,14 @@
         where topic_id = #{topicId};
     </update>
     <select id="findAllTopics" resultType="com.lhb.springboot.entity.comments.Topic">
-        select * from `t_topic`;
+        select * from `t_topic`
     </select>
     <select id="findTopicsByUserId" resultType="com.lhb.springboot.entity.comments.Topic">
-        select * from `t_topic` where user_id = #{userId};
+        select * from `t_topic` where user_id = #{userId}
     </select>
     <select id="findTopicsByUserIdAndName" resultType="com.lhb.springboot.entity.comments.Topic">
         select * from `t_topic` where user_id = #{userId}
-        and topic_name like '%${topicName}%';
+        and topic_name like '%${topicName}%'
     </select>
 
 </mapper>

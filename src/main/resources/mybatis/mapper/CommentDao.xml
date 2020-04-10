@@ -16,17 +16,17 @@
         where user_id = #{userId} and topic_id = #{topicId};
     </update>
     <select id="findAllComments" resultType="com.lhb.springboot.entity.comments.Comment">
-        select * from `t_comment`;
+        select * from `t_comment`
     </select>
     <select id="findCommentsByUserId" resultType="com.lhb.springboot.entity.comments.Comment">
-        select * from `t_comment` where user_id = #{userId};
+        select * from `t_comment` where user_id = #{userId}
     </select>
     <select id="findCommentsByTopicId" resultType="com.lhb.springboot.entity.comments.Comment">
-        select * from `t_comment` where topic_id = #{topicId};
+        select * from `t_comment` where topic_id = #{topicId}
     </select>
     <select id="findCommentsByTopicIdAndUserId" resultType="com.lhb.springboot.entity.comments.Comment">
         select * from `t_comment` where topic_id = #{topicId}
-        and user_id = #{userId};
+        and user_id = #{userId}
     </select>
 
 </mapper>

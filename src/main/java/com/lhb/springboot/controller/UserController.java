@@ -147,20 +147,7 @@ public class UserController {
 //        return "/user/regist";
 //    }
 //
-    @PostMapping("/login")
-    @ResponseBody
-    public Users login(@RequestBody Users user, HttpSession session, HttpServletRequest request){
-//        User user1 = userService.findUserBySno(user.getSno());
-        Users users = usersService.findUserById(user);
-        if(users!=null && users.getUserName().equals(user.getUserName())){
-            session.setAttribute("username",users.getUserName());
-            session.setAttribute("level",users.getLevel());
-            request.getSession().setAttribute("userLogin",users.getUserName());
-            request.getSession().setAttribute("level",users.getLevel());
-            return users;
-        }
-        return null;
-    }
+
     @RequestMapping("/home")
     public String toHomePage(){
         return "main/home";

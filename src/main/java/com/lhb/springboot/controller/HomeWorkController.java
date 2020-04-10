@@ -123,9 +123,6 @@ public class HomeWorkController {
     }
     private void download(File file,HttpServletResponse response,String fileName) throws UnsupportedEncodingException {
         if(file.exists()){ //判断文件父目录是否存在
-            /**
-             * 下载文件存在编码问题，待解决！！！
-             */
             response.setContentType("application/vnd.ms-excel;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
             // response.setContentType("application/force-download");

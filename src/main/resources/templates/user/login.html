@@ -71,15 +71,15 @@
                 userId:sno
             }
             $.post({
-                url:"/login",
+                url:"/users/login",
                 contentType:"application/json",
                 data:JSON.stringify(para),
                 success:function (result) {
-                    if(result.userId==null||result.userId==""){
+                    if(result.code!=200){
                         alert("学号或姓名错误");
                         return;
                     }
-                    alert("欢迎你: "+result.userName);
+                    alert("成功");
                     location.href="/home";
                 }
             });

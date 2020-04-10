@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>班级分配</title>
+    <script th:src="@{/webjars/jquery/3.4.0/jquery.js}"></script>
+    <script type="text/javascript">
+        $(function () {
+            //拉取年级信息
+            $.get({
+                url:"/users/getGrades",
+                success:function (result) {
+                    if(result!=null){
+                        let obj = document.getElementById("grade");
+                        for (let i=0;i<result.length;i++){
+                            obj.options[i+1] = new Option(result[i].gradeName);
+                            if(result[i].gradeName == $("#sel").val()){
+                                obj.options[i+1].selected=true;
+                            }
+                        }
+                    }
+                },
+                error:function () {
+                    alert("年纪拉取失败");
+                }
+            });
+            $("#sub").click(function () {
+                let opt = $("#grade option:selected").val();
+                if(opt == "-- 请选择 --"){
+                    alert("请选择年级");
+                    return;
+                }
+                $("#updateForm").submit();
+            })
+        })
+    </script>
+</head>
+<body>
+<input type="text" id="sel" th:value="${grades.gradeName}" hidden="hidden"/>
+<form id="updateForm" th:action="@{/admin/updateGrade}" th:method="post">
+    学号:<input type="text" th:value="${user.userId}" readonly name="userId"/><br/>
+    姓名:<input type="text" th:value="${user.userName}" readonly name="userName"/><br/>
+    年级:<select id="grade" name="gradeName">
+        <option>-- 请选择 --</option>
+    </select><br/>
+    <input type="button" id="sub" th:value="修改"/>
+</form>
+</body>
+</html>
