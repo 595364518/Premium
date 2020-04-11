@@ -1,6 +1,8 @@
 package com.lhb.springboot.configurer;
 
+import com.lhb.springboot.interceptor.AdminInterceptor;
 import com.lhb.springboot.interceptor.DownLoadInterceptor;
+import com.lhb.springboot.interceptor.HomeworkInterceptor;
 import com.lhb.springboot.interceptor.MyInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,15 +28,20 @@ public class MyWebConfigurer {
                 registry.addViewController("/index").setViewName("homework/list");
                 registry.addViewController("/upload").setViewName("homework/uploadFile");
                 registry.addViewController("/note").setViewName("homework/notePage");
+                registry.addViewController("/homes").setViewName("main/home");
             }
 
             //添加拦截器
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/","/login","/users/**","/mailTest")
+                .excludePathPatterns("/","/login")
+                .excludePathPatterns("/users/*")
+                .excludePathPatterns("/users/homeworks/file","/users/homeworks/upload",
+                        "/users/homeworks/getTimes","/users/homeworks/isMatch")
                 .excludePathPatterns("/css/**","/img/**","/fonts/**","/js/**","/music/**","/webjars/**");
-                registry.addInterceptor(new DownLoadInterceptor()).addPathPatterns("/downloadFile");
+                registry.addInterceptor(new DownLoadInterceptor()).addPathPatterns("/users/homeworks/downloadFile");
+                registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/**");
             }
             //设置虚路径
 

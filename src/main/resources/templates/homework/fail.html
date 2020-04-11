@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>失败页面</title>
+    <title>提交失败</title>
 </head>
 <body>
 <div id="notice">
     <h2>状态:<span th:text="${obj.get('status')}" style="color: aqua"></span></h2>
     <h2>信息:<span th:text="${obj.get('msg')}" style="color: red"></span></h2>
 </div>
-<a th:href="@{/file}">重新提交</a>
+<a th:href="@{/users/homeworks/file}">重新提交</a>
 </body>
 </html>

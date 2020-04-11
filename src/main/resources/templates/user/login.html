@@ -16,7 +16,7 @@
 </head>
 <body>
 <div id="loginBox" class="center-block">
-    <h2 id="title">优质体验欢迎您~</h2>
+    <h2 id="title">Welcome To Premium~</h2>
     <h4 style="text-align: center"><span th:if="${not #strings.isEmpty(msg)}" style="color: red" th:text="${msg}"></span></h4>
     <form class="form-horizontal">
         <div class="form-group">
@@ -48,6 +48,7 @@
             <div class="col-sm-offset-2 col-sm-3">
                 <button type="button" class="btn btn-primary" id="submit">登录</button>
                 <a th:href="@{/users/toRegist}" class="btn btn-default" role="button">立即注册</a>
+                <a th:href="@{/users/homeworks/file}" class="btn btn-success" role="button">免登陆交作业</a>
             </div>
         </div>
     </form>
@@ -79,7 +80,6 @@
                         alert("学号或姓名错误");
                         return;
                     }
-                    alert("成功");
                     location.href="/home";
                 }
             });

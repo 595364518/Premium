@@ -19,18 +19,18 @@
             <td>操作</td>
         </tr>
         <tr th:each="a:${homework.list}">
-            <td th:text="${a.hid}"></td>
-            <td th:text="${a.hname}"></td>
-            <td th:text="${a.sno}"></td>
-            <td th:if="${a.hname.substring(a.hname.length()-3,a.hname.length())!='doc'&&a.hname.substring(a.hname.length()-3,a.hname.length())!='ocx'}"><span style="color: red">不合格</span></td>
-            <td th:if="${a.hname.substring(a.hname.length()-3,a.hname.length())=='doc'||a.hname.substring(a.hname.length()-3,a.hname.length())=='ocx'}"><a th:href="@{/downloadFile}+'?fileName='+${a.hname}" style="color: lawngreen">合格</a></td>
+            <td th:text="${a.homeworkId}"></td>
+            <td th:text="${a.homeworkName}"></td>
+            <td th:text="${a.userId}"></td>
+            <td th:if="${a.homeworkName.substring(a.homeworkName.length()-3,a.homeworkName.length())!='doc'&&a.homeworkName.substring(a.homeworkName.length()-3,a.homeworkName.length())!='ocx'}"><span style="color: red">不合格</span></td>
+            <td th:if="${a.homeworkName.substring(a.homeworkName.length()-3,a.homeworkName.length())=='doc'||a.homeworkName.substring(a.homeworkName.length()-3,a.homeworkName.length())=='ocx'}"><a th:href="@{/users/homeworks/downloadFile}+'?fileName='+${a.homeworkName}" style="color: lawngreen">合格</a></td>
         </tr>
         <tr th:hidden="${homework.list.isEmpty()}" style="margin: 0 auto; background-color: grey; width: 100%;height: 4%;overflow: hidden">
             <td colspan="4" style="text-align: center">
-                <a th:href="@{/homework(start=1)}" style="color: aqua;"th:if="${homework.pageNum!=1}">[首  页]</a>
-                <a th:href="@{/homework(start=${homework.pageNum-1})}" th:if="${homework.pageNum!=1}" style="color: aqua;">[上一页]</a>
-                <a th:href="@{/homework(start=${homework.pageNum+1})}" th:if="${homework.pageNum!=homework.pages}" style="color: aqua;">[下一页]</a>
-                <a th:href="@{/homework(start=${homework.pages})}" style="color: aqua;" th:if="${homework.pageNum!=homework.pages}">[末  页]</a>
+                <a th:href="@{/users/homeworks/list(start=1)}" style="color: aqua;"th:if="${homework.pageNum!=1}">[首  页]</a>
+                <a th:href="@{/users/homeworks/list(start=${homework.pageNum-1})}" th:if="${homework.pageNum!=1}" style="color: aqua;">[上一页]</a>
+                <a th:href="@{/users/homeworks/list(start=${homework.pageNum+1})}" th:if="${homework.pageNum!=homework.pages}" style="color: aqua;">[下一页]</a>
+                <a th:href="@{/users/homeworks/list(start=${homework.pages})}" style="color: aqua;" th:if="${homework.pageNum!=homework.pages}">[末  页]</a>
                 当前页:<input type="text" style="width: 20px;" readonly="readonly"th:value="${homework.pageNum}"/>/总页数:<input type="text" style="width: 20px;" readonly="readonly" th:value="${homework.pages}"/>
             </td>
         </tr>

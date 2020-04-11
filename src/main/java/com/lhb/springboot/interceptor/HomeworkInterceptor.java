@@ -6,22 +6,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @Author: yaya
- * @Description:
- * @Date: Create in 下午 05:17 2020/3/13
+ * @author: yaya
+ * @create: 2020/4/11
  */
-public class MyInterceptor implements HandlerInterceptor {
+public class HomeworkInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
-        Object loginUser = request.getSession().getAttribute("userLogin");
-        if (loginUser==null){
-            request.setAttribute("msg","请先登录");
+        Object obj = request.getSession().getAttribute("username");
+        if(obj == null || obj == ""){
+            request.setAttribute("msg1","请先登录");
+            System.out.println("list拦截成功");
             request.getRequestDispatcher("/").forward(request,response);
             return false;
         }
-        System.out.println("login未拦截");
-        request.setAttribute("msg","");
+        request.setAttribute("msg1","");
         return true;
     }
 }

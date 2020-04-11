@@ -31,6 +31,13 @@ public interface TimesService {
     int updateTime(Times times);
 
     /**
+     * 通过作业名查询作业
+     * @param timeName 作业名
+     * @return 作业
+     */
+    Times findTimeByName(String timeName);
+
+    /**
      * 查询所有作业
      * @return 做业集合
      */

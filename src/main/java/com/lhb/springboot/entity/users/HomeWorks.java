@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 public class HomeWorks implements Serializable {
     private Long homeworkId;
     private Long userId;
-    private Long timeIdl;
+    private Long timeId;
     private String homeworkName;
     private int qualified;
     private int checked;
@@ -33,12 +33,12 @@ public class HomeWorks implements Serializable {
         this.userId = userId;
     }
 
-    public Long getTimeIdl() {
-        return timeIdl;
+    public Long getTimeId() {
+        return timeId;
     }
 
-    public void setTimeIdl(Long timeIdl) {
-        this.timeIdl = timeIdl;
+    public void setTimeId(Long timeId) {
+        this.timeId = timeId;
     }
 
     public String getHomeworkName() {

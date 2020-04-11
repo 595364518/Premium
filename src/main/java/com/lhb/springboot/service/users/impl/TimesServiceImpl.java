@@ -45,6 +45,11 @@ public class TimesServiceImpl implements TimesService {
     }
 
     @Override
+    public Times findTimeByName(String timeName) {
+        return timesDao.findTimeByName(timeName);
+    }
+
+    @Override
     public List<Times> findAllTimes() {
         return timesDao.findAllTimes();
     }

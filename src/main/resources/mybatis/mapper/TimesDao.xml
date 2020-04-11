@@ -18,6 +18,9 @@
         </if>
         public_date = now() where time_id = #{timeId};
     </update>
+    <select id="findTimeByName" resultType="com.lhb.springboot.entity.users.Times">
+        select * from `t_times` where time_name = #{timeName}
+    </select>
     <select id="findAllTimes" resultType="com.lhb.springboot.entity.users.Times">
         select * from `t_times`
     </select>

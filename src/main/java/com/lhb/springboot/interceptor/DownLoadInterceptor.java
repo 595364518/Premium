@@ -14,8 +14,8 @@ public class DownLoadInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Object obj = request.getSession().getAttribute("level");
-        if((Long)obj == 1L){
-            request.setAttribute("msg1","没有权限");
+        if(obj != null && (Integer) obj != 255){
+            request.setAttribute("msg1","学生不允许下载");
             System.out.println("download拦截成功");
             request.getRequestDispatcher("/note").forward(request,response);
             return false;

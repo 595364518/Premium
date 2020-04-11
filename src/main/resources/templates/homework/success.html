@@ -9,6 +9,9 @@
     <h2>状态:<span th:text="${obj.get('status')}" style="color: aqua"></span></h2>
     <h2>信息:<span th:text="${obj.get('msg')}" style="color: aqua"></span></h2>
 </div>
-<a th:href="@{/homework}">提交列表</a>
+<div>
+    <h2 style="color: orangered">免登陆状态下，提交成功后可用提交时的学号和姓名进行登录</h2>
+    <a th:href="@{/users/homeworks/list}">提交列表</a><span style="font-size: 16px;color: orangered;">(免登录状态不可查看)</span>
+</div>
 </body>
 </html>
