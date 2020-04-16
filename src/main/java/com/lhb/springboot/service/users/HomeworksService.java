@@ -31,6 +31,13 @@ public interface HomeworksService {
     int updateHomework(HomeWorks homeworks);
 
     /**
+     * 通过作业名查询作业
+     * @param homeWorks
+     * @return
+     */
+    HomeWorks findHomeworkByName(HomeWorks homeWorks);
+
+    /**
      * 查询所有作业
      * @return 做业集合
      */

@@ -21,6 +21,9 @@
         </if>
         where homeworkd_id = #{homeworkId}
     </update>
+    <select id="findHomeworkByName" resultType="com.lhb.springboot.entity.users.HomeWorks">
+        select * from  `t_homework` where homework_name = #{homeworkName}
+    </select>
     <select id="findAllHomeworks" resultType="com.lhb.springboot.entity.users.HomeWorks">
         select * from `t_homework`
     </select>

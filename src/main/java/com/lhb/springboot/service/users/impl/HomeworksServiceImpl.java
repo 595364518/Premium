@@ -45,6 +45,11 @@ public class HomeworksServiceImpl implements HomeworksService {
     }
 
     @Override
+    public HomeWorks findHomeworkByName(HomeWorks homeWorks) {
+        return homeworksDao.findHomeworkByName(homeWorks);
+    }
+
+    @Override
     public List<HomeWorks> findAllHomeworks() {
         return homeworksDao.findAllHomeworks();
     }

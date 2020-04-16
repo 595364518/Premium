@@ -2,7 +2,6 @@ package com.lhb.springboot.controller.users;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lhb.springboot.entity.tests.HomeWork;
 import com.lhb.springboot.entity.users.Grade;
 import com.lhb.springboot.entity.users.HomeWorks;
 import com.lhb.springboot.entity.users.Times;
@@ -64,10 +63,16 @@ public class HomeWorksController {
     @GetMapping("/isMatch")
     public Result isMatch(Users users, Grade grade){
         Users userById = usersService.findUserById(users);
+        String orgName = users.getUserName();
+        String destName = userById.getUserName();
         if (userById == null){
             return new Result(ResultCode.SUCCESSFUL.getCode(),
                     ResultCode.SUCCESSFUL.getMsg());
         }else{
+            if(!(orgName.equals(destName))){
+                return new Result(ResultCode.FAILED.getCode(),
+                        ResultCode.FAILED.getMsg());
+            }
             Grade gradeByName = gradeService.findGradeByName(grade);
             if(userById.getGradeId().equals(gradeByName.getGradeId())){
                 return new Result(ResultCode.SUCCESSFUL.getCode(),
@@ -84,7 +89,8 @@ public class HomeWorksController {
         String str=null;
         Users u = null;
         //
-        String localPath = "f:/homework/";
+        String localPath = "f:/homework/";//本地版
+//        String localPath = "f:/homework/";//服务器版
         String subPath = grade.getGradeName()+"/"
                 +times.getTimeName();
         localPath += subPath;
@@ -93,7 +99,9 @@ public class HomeWorksController {
         Map<String,Object> map = new HashMap<>();
         HomeWorks hw = new HomeWorks();
         Times timeByName = timesService.findTimeByName(times.getTimeName());
-        if(usersService.findUserById(users)==null){
+        Users userById = usersService.findUserById(users);
+        if(userById==null){
+            //不存在直接添加
             Grade gradeByName = gradeService.findGradeByName(grade);
             users.setGradeId(gradeByName.getGradeId());
             u = usersService.addUser(users);
@@ -127,6 +135,7 @@ public class HomeWorksController {
             map = statusResult("0",str);
             model.addAttribute("obj",map);
             if(u != null){
+                //上传失败时，删除用户
                 usersService.delUserById(u.getUserId());
             }
             return "homework/fail";
@@ -137,13 +146,18 @@ public class HomeWorksController {
         hw.setHomeworkName(subPath+"/"+fileName);
         hw.setUserId(users.getUserId());
         hw.setTimeId(timeByName.getTimeId());
+        HomeWorks homeworkByName = homeworksService.findHomeworkByName(hw);
+        if(homeworkByName!=null) {
+            homeworksService.delHomeworkById(homeworkByName.getHomeworkId());
+        }
         homeworksService.addHomework(hw);
+
         return "homework/success";
     }
     @GetMapping("/downloadFile")
     public String downLoadVde(HttpServletResponse response, @RequestParam(value = "fileName") String fileName) throws UnsupportedEncodingException {
         String filePath = "f:/homework" ;//本地版
-//        String filePath = "/homework" ;//服务器版
+//      String filePath = "/homework" ;//服务器版
         File file = new File(filePath + "/" + fileName);
         DownLoadUtil.download(file,response,fileName);
         return "redirect:/users/homeworks/list";
