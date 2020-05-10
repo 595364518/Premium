@@ -25,7 +25,7 @@ public class MyWebConfigurer {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/").setViewName("user/login");
-                registry.addViewController("/index").setViewName("homework/list");
+                registry.addViewController("/index").setViewName("index");
                 registry.addViewController("/upload").setViewName("homework/uploadFile");
                 registry.addViewController("/note").setViewName("homework/notePage");
                 registry.addViewController("/homes").setViewName("main/home");
@@ -37,9 +37,10 @@ public class MyWebConfigurer {
                 registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/","/login")
                 .excludePathPatterns("/users/*")
+                        .excludePathPatterns("/index")
                 .excludePathPatterns("/users/homeworks/file","/users/homeworks/upload",
                         "/users/homeworks/getTimes","/users/homeworks/isMatch")
-                .excludePathPatterns("/css/**","/img/**","/fonts/**","/js/**","/music/**","/webjars/**");
+                .excludePathPatterns("/css/**","/img/**","/fonts/**","/js/**","/json/**","/music/**","/webjars/**");
                 registry.addInterceptor(new DownLoadInterceptor()).addPathPatterns("/users/homeworks/downloadFile");
                 registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/**");
             }

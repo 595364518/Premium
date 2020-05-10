@@ -89,8 +89,8 @@ public class HomeWorksController {
         String str=null;
         Users u = null;
         //
-        String localPath = "f:/homework/";//本地版
-//        String localPath = "f:/homework/";//服务器版
+//        String localPath = "f:/homework/";//本地版
+        String localPath = "/homework/";//服务器版
         String subPath = grade.getGradeName()+"/"
                 +times.getTimeName();
         localPath += subPath;
@@ -156,8 +156,8 @@ public class HomeWorksController {
     }
     @GetMapping("/downloadFile")
     public String downLoadVde(HttpServletResponse response, @RequestParam(value = "fileName") String fileName) throws UnsupportedEncodingException {
-        String filePath = "f:/homework" ;//本地版
-//      String filePath = "/homework" ;//服务器版
+//        String filePath = "f:/homework" ;//本地版
+      String filePath = "/homework" ;//服务器版
         File file = new File(filePath + "/" + fileName);
         DownLoadUtil.download(file,response,fileName);
         return "redirect:/users/homeworks/list";

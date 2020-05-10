@@ -34,7 +34,11 @@ public enum ResultCode {
     /**
      * 验证码为空
      */
-    EMPTY_CODE(205,"验证码为空"),
+    EMPTY_CODE(206,"验证码为空"),
+    /**
+     * 操作失败
+     */
+    WRONG_OPERATION(207,"操作失败"),
     /**
      * 登录失败
      */
